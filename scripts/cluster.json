@@ -1,0 +1,72 @@
+{
+  "applicationBundle": {
+    "name": "kubernetes-cluster-APP_BUNDLE",
+    "version": "APP_BUNDLE"
+  },
+  "openstack": {
+    "computeAvailabilityZone": "nova",
+    "volumeAvailabilityZone": "nova",
+    "externalNetworkID": "EXTERNAL_NETWORK_ID"
+  },
+  "network": {
+    "nodePrefix": "172.0.0.0/16",
+    "servicePrefix": "10.16.0.0/12",
+    "podPrefix": "10.17.0.0/12",
+    "dnsNameservers": [
+      "8.8.8.8",
+      "8.8.4.4"
+    ]
+  },
+  "controlPlane": {
+    "replicas": 3,
+    "version": "IMAGE_VERS",
+    "imageName": "IMAGE_NAME",
+    "flavorName": "CP_FLAVOR",
+    "disk": {
+      "size": 25
+    }
+  },
+  "workloadPools": [
+    {
+      "name": "core",
+      "machine": {
+        "replicas": 3,
+        "version": "IMAGE_VERS",
+        "imageName": "IMAGE_NAME",
+        "flavorName": "CP_FLAVOR",
+        "disk": {
+          "size": 25
+        }
+      },
+      "autoscaling": {
+        "minimumReplicas": 0,
+        "maximumReplicas": 5
+      }
+    },
+    {
+      "name": "gpu",
+      "machine": {
+        "replicas": 1,
+        "version": "IMAGE_VERS",
+        "imageName": "IMAGE_NAME",
+        "flavorName": "FLAVOR_NAME",
+        "disk": {
+          "size": 25
+        }
+      },
+      "autoscaling": {
+        "minimumReplicas": 0,
+        "maximumReplicas": 2
+      }
+    }
+  ],
+  "features": {
+    "autoscaling": true,
+    "ingress": true,
+    "nvidiaOperator": true,
+    "certManager": true,
+    "kubernetesDashboard": false,
+    "fileStorage": false,
+    "prometheus": false
+  }
+}

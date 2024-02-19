@@ -1,0 +1,36 @@
+---
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0  # Use the ref you want to point at
+    hooks:
+      - id: trailing-whitespace
+      - id: check-yaml
+  - repo: https://github.com/drewbernetes/pre-commits.git
+    rev: v0.1.0
+    hooks:
+      - id: trivy
+        args:
+          - fs
+          - .
+  - repo: https://github.com/drewbernetes/pre-commits.git
+    rev: v0.1.0
+    hooks:
+      - id: docker
+        args:
+          - --image-name
+          - e2e-tools
+          - --dockerfile-path
+          - ./Dockerfile
+          - --context
+          - .
+  - repo: https://github.com/drewbernetes/pre-commits.git
+    rev: v0.1.0
+    hooks:
+      - id: trivy
+        args:
+          - image
+          - --severity
+          - HIGH,CRITICAL
+          - --ignorefile
+          - .trivyignore
+          - local/e2e-tools:0.0.0

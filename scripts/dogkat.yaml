@@ -1,0 +1,27 @@
+chart:
+  version: 0.1.2
+metrics:
+  enabled: false
+  pushGatewayURI: http://prometheus-push-gateway.prometheus:9091
+core:
+  enabled: true
+  cpu: 1
+  memory: 1Gi
+  storageClassName: "STORAGE_CLASS"
+  scaleTo: SCALE_TO
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  host: "CLUSTER_NAME.DOMAIN"
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  tls:
+    enable: true
+    host: "CLUSTER_NAME.DOMAIN"
+    secretName: "dogkat-ingress-secret"
+gpu:
+  enabled: true
+  numberOfGPUs: 1
+  nodeLabelSelectors:
+    nvidia.com/gpu.present: "true"
+    topology.eschercloud.ai/node-pool: "gpu"
