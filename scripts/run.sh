@@ -98,7 +98,7 @@ function provision_cluster {
 
     END=$(date +%s)
     DURATION=$((END - START))
-    echo "unikornctl_cluster_creation_duration_seconds{image=\"${CN}\"} ${DURATION}" | curl --data-binary @- http://prometheus-push-gateway.prometheus:9091/metrics/job/e2e_workloads
+    echo "unikornctl_cluster_creation_duration_seconds{image=\"${CN}\"} ${DURATION}" | curl --data-binary @- ${push_gateway}
 }
 
 # Fetch kubeconfig for cluster
@@ -289,6 +289,10 @@ while [[ $# -gt 0 ]]; do
 			;;
 		--enable-nvidia)
 			enable_nvidia="$2"
+			shift
+			;;
+		--push-gateway-url)
+			push_gateway="$2"
 			shift
 			;;
 	esac
