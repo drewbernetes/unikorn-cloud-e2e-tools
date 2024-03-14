@@ -11,6 +11,11 @@
 [//]: # ()
 [//]: # (### Deprecated/Removed)
 
+## [ 2024/03/14 - 0.1.2 ]
+
+## Changed/Added
+* Added support for defining the push gateway url
+
 ## [ 2024/03/14 - 0.1.1 ]
 
 ## Changed/Added
