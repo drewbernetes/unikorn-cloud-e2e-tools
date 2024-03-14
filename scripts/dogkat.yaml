@@ -20,7 +20,7 @@ ingress:
     host: "CLUSTER_NAME.DOMAIN"
     secretName: "dogkat-ingress-secret"
 gpu:
-  enabled: true
+  enabled: ENABLE_NVIDIA
   numberOfGPUs: 1
   nodeLabelSelectors:
     nvidia.com/gpu.present: "true"

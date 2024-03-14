@@ -11,7 +11,12 @@
 [//]: # ()
 [//]: # (### Deprecated/Removed)
 
-## [ 2024/02/20 - 1.0.0 ]
+## [ 2024/03/14 - 0.1.1 ]
 
 ## Changed/Added
-Initial release
+* Added support for multiple GPUs
+
+## [ 2024/02/20 - 0.1.0 ]
+
+## Changed/Added
+* Initial release
