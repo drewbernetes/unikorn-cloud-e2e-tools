@@ -13,7 +13,7 @@
     "servicePrefix": "10.16.0.0/12",
     "podPrefix": "10.17.0.0/12",
     "dnsNameservers": [
-      "8.8.8.8",
+      "1.1.1.1",
       "8.8.4.4"
     ]
   },
@@ -63,7 +63,7 @@
   "features": {
     "autoscaling": true,
     "ingress": true,
-    "nvidiaOperator": true,
+    "nvidiaOperator": ENABLE_NVIDIA,
     "certManager": true,
     "kubernetesDashboard": false,
     "fileStorage": false,

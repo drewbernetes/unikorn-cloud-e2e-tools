@@ -1,6 +1,9 @@
 #!/bin/bash
 
-declare IMAGE_NAME IMAGE_VERS CN
+declare IMAGE_NAME IMAGE_VERS CN enable_nvidia enable_amd
+
+enable_amd=false
+enable_nvidia=false
 
 CP="image-build"
 
@@ -8,7 +11,7 @@ CP="image-build"
 function checkForSuccess {
     r=$1
     if [ $r -ne 0 ]; then
-      printf "An error occured: %s\n" "$3"
+      printf "An error occurred: %s\n" "$3"
       if [ "$2" != "deprovision_cluster" ] && [ "$2" != "provision_cluster" ]; then
         deprovision_cluster
       fi
@@ -46,7 +49,10 @@ function prepare_cluster_build {
         -e "s|IMAGE_NAME|${IMAGE_NAME}|g" \
         -e "s|CP_FLAVOR|${CP_FLAVOR}|g" \
         -e "s|FLAVOR_NAME|${FLAVOR_NAME}|g" \
+        -e "s|ENABLE_NVIDIA|${enable_nvidia}|g" \
         -i $HOME/cluster.json
+        # TODO: enable when AMD support is configured in Unikorn
+        # -e "s|ENABLE_AMD|${enable_amd}|g" \
 }
 
 # Generate the dogkat yaml file
@@ -57,7 +63,10 @@ function prepare_dogkat {
       -e "s|SCALE_TO|${scale_to}|g" \
       -e "s|DOMAIN|${domain}|g" \
       -e "s|STORAGE_CLASS|${storage_class}|g" \
+      -e "s|ENABLE_NVIDIA|${enable_nvidia}|g" \
       -i $HOME/.dogkat/dogkat.yaml
+      # TODO: enable when AMD support is configured in Unikorn and Dogkat
+      # -e "s|ENABLE_AMD|${enable_amd}|g" \
 }
 
 # Provision the cluster for running tests
@@ -272,6 +281,14 @@ while [[ $# -gt 0 ]]; do
 			;;
 		--cloudflare-email)
 			cloudflare_email="$2"
+			shift
+			;;
+		--enable-amd)
+			enable_amd="$2"
+			shift
+			;;
+		--enable-nvidia)
+			enable_nvidia="$2"
 			shift
 			;;
 	esac
