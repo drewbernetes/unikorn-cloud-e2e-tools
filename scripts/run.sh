@@ -60,8 +60,8 @@ function prepare_dogkat {
   scale_to=25
 
   sed -e "s|CLUSTER_NAME|${CN}|g" \
-      -e "s|SCALE_TO|${scale_to}|g" \
       -e "s|DOMAIN|${domain}|g" \
+      -e "s|SCALE_TO|${scale_to}|g" \
       -e "s|STORAGE_CLASS|${storage_class}|g" \
       -e "s|ENABLE_NVIDIA|${enable_nvidia}|g" \
       -i $HOME/.dogkat/dogkat.yaml
@@ -119,13 +119,13 @@ metadata:
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: ${CF_EMAIL}
+    email: ${cloudflare_email}
     privateKeySecretRef:
       name: letsencrypt-prod
     solvers:
       - dns01:
           cloudflare:
-            email: ${CF_EMAIL}
+            email: ${cloudflare_email}
             apiTokenSecretRef:
               key: api-key
               name: cloudflare-api-key-secret
@@ -151,7 +151,7 @@ env:
 txtOwnerId: img-build
 txtPrefix: "${CN}"
 domainFilters:
-  - DOMAIN
+  - ${domain}
 sources:
   - service
   - ingress
