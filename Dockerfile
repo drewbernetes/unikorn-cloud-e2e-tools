@@ -1,7 +1,7 @@
 FROM cgr.dev/chainguard/wolfi-base:latest as builder
 
 ENV UNIKORNCTL_VERSION="0.1.0"
-ENV DOGKAT_VERSION="0.1.5"
+ENV DOGKAT_VERSION="0.1.6"
 ENV HELM_VERSION="3.13.3"
 ENV KUBECTL="1.28.5"
 

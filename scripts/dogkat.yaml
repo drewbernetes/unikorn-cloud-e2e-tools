@@ -24,4 +24,4 @@ gpu:
   numberOfGPUs: 1
   nodeLabelSelectors:
     nvidia.com/gpu.present: "true"
-    topology.eschercloud.ai/node-pool: "gpu"
+    topology.kubernetes.io/node-pool: "gpu"
