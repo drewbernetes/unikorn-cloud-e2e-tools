@@ -11,6 +11,12 @@
 [//]: # ()
 [//]: # (### Deprecated/Removed)
 
+## [ 2024/03/15 - 0.1.5 ]
+
+## Changed/Added
+* Updated dogkat
+* Removed a reference to sha256 in the postgres tag as it's supplied in the repo line
+
 ## [ 2024/03/15 - 0.1.4 ]
 
 ## Changed/Added

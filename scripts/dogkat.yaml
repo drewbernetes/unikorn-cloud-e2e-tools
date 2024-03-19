@@ -1,5 +1,5 @@
 chart:
-  version: 0.1.7
+  version: 0.1.8
 metrics:
   enabled: false
   pushGatewayURI: http://prometheus-push-gateway.prometheus:9091
@@ -23,7 +23,7 @@ core:
 postgres:
   image:
     repo: registry.infra.poc.dev.nscale.com/docker-cache/postgres@sha256
-    tag: sha256:49fd8c13fbd0eb92572df9884ca41882a036beac0f12e520274be85e7e7806e9 # 16.2-alpine
+    tag: 49fd8c13fbd0eb92572df9884ca41882a036beac0f12e520274be85e7e7806e9 # 16.2-alpine
 ingress:
   enabled: true
   ingressClassName: nginx
