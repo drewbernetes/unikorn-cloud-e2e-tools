@@ -211,6 +211,9 @@ function cleanup {
     dogkat delete -n dogkat
     checkForSuccess $? "cleanup" "failed to successfully run dogkat delete"
 
+    echo "waiting for 120 seconds so external-dns can remove the DNS records"
+    sleep 120
+
     helm uninstall -n external-dns external-dns
     checkForSuccess $? "cleanup" "failed to successfully uninstall external-dns"
 }
