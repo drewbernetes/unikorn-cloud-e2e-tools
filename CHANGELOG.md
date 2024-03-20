@@ -11,6 +11,11 @@
 [//]: # ()
 [//]: # (### Deprecated/Removed)
 
+## [ 2024/03/20 - 0.1.7 ]
+
+## Changed/Added
+* CONFIG: Updated the scale-to value to be a flag so that it can be overridden
+
 ## [ 2024/03/20 - 0.1.6 ]
 
 ## Changed/Added
