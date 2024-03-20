@@ -11,6 +11,7 @@ RUN apk update && apk add curl
 
 RUN curl -LO https://github.com/drewbernetes/unikornctl/releases/download/v${UNIKORNCTL_VERSION}/unikornctl-linux-amd64
 RUN curl -LO https://github.com/drewbernetes/dogkat/releases/download/v${DOGKAT_VERSION}/dogkat-linux-amd64
+RUN curl -LO https://github.com/drewbernetes/dogkat/releases/download/dogkat-${DOGKAT_VERSION}/dogkat-${DOGKAT_VERSION}.tgz
 RUN chmod +x dogkat-linux-amd64
 RUN chmod +x unikornctl-linux-amd64
 
@@ -28,6 +29,8 @@ RUN chmod +x kubectl
 
 FROM cgr.dev/chainguard/wolfi-base:latest
 
+ENV DOGKAT_VERSION="0.1.9"
+
 RUN apk update && apk add --no-cache aws-cli bash curl
 
 RUN echo "e2e-tools:x:1000:1000:E2ETools Non Root,,,:/home/e2e-tools:" >> /etc/passwd
@@ -37,6 +40,7 @@ RUN chown e2e-tools: -R /home/e2e-tools
 
 COPY --from=builder /tmp/unikornctl-linux-amd64 /bin/unikornctl
 COPY --from=builder /tmp/dogkat-linux-amd64 /bin/dogkat
+COPY --from=builder /tmp/dogkat-${DOGKAT_VERSION}.tgz /tmp/dogkat-${DOGKAT_VERSION}.tgz
 COPY --from=builder /tmp/linux-amd64/helm /bin/helm
 COPY --from=builder /tmp/kubectl /bin/kubectl
 
