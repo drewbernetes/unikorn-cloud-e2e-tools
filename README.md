@@ -88,6 +88,7 @@ local/e2e-test:0.0.0
 /home/e2e-tools/run.sh run-dogkat \
     --image-id SOME_IMAGE_ID\
     --enable-nvidia false \
+    --scale-to 10 \
     --domain example.com \
     --unikorn-url https://unikorn.example.com \
     --api-key CLOUDFLARE_API_KEY \

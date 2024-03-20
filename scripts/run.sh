@@ -4,6 +4,7 @@ declare IMAGE_NAME IMAGE_VERS CN enable_nvidia enable_amd
 
 enable_amd=false
 enable_nvidia=false
+scale_to=10
 
 CP="image-build"
 
@@ -57,7 +58,7 @@ function prepare_cluster_build {
 
 # Generate the dogkat yaml file
 function prepare_dogkat {
-  scale_to=25
+  scale_to=${scale_to}
 
   sed -e "s|CLUSTER_NAME|${CN}|g" \
       -e "s|DOMAIN|${domain}|g" \
@@ -296,6 +297,10 @@ while [[ $# -gt 0 ]]; do
 			;;
 		--push-gateway-url)
 			push_gateway="$2"
+			shift
+			;;
+		--scale-to)
+			scale_to="$2"
 			shift
 			;;
 	esac
