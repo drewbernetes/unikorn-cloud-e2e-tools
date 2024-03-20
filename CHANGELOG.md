@@ -11,6 +11,15 @@
 [//]: # ()
 [//]: # (### Deprecated/Removed)
 
+## [ 2024/03/20 - 0.1.6 ]
+
+## Changed/Added
+* TESTS: Added some test Dockerfiles for local development
+* DOCKERFILE: Updated dogkat
+* DOCKERFILE: Updated helm and kubectl
+* DOCS: Improved README
+
+
 ## [ 2024/03/19 - 0.1.5 ]
 
 ## Changed/Added

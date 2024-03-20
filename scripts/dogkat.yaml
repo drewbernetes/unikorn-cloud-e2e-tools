@@ -1,5 +1,5 @@
 chart:
-  version: 0.1.8
+  version: 0.1.9
 metrics:
   enabled: false
   pushGatewayURI: http://prometheus-push-gateway.prometheus:9091
@@ -11,32 +11,33 @@ core:
   scaleTo: SCALE_TO
   nginx:
     image:
-      repo: registry.infra.poc.dev.nscale.com/docker-cache/nginx@sha265
+      repo: registry.infra.poc.dev.nscale.com/docker-cache/nginx@sha256
       tag: 02d8d94023878cedf3e3acc55372932a9ba1478b6e2f3357786d916c2af743ba # 1.25.4-alpine
-  exporterImage:
-    repo: registry.infra.poc.dev.nscale.com/docker-cache/nginx/nginx-prometheus-exporter@sha256
-    tag: d710e0ff2505a7037dd21e47eae07025010c0de08a6247d1a704824823becfd0 # 1.1.0
+  nginxExporter:
+    image:
+      repo: registry.infra.poc.dev.nscale.com/docker-cache/nginx/nginx-prometheus-exporter@sha256
+      tag: d710e0ff2505a7037dd21e47eae07025010c0de08a6247d1a704824823becfd0 # 1.1.0
   php:
     image:
       repo: registry.infra.poc.dev.nscale.com/docker-cache/drewviles/php-pdo@sha256
       tag: 253465d95c3fa68871c2ccc6c67d4ed5ee500563fbbfee3b54a9544f8025d1d6 # v1.1.0
-postgres:
-  image:
-    repo: registry.infra.poc.dev.nscale.com/docker-cache/postgres@sha256
-    tag: 49fd8c13fbd0eb92572df9884ca41882a036beac0f12e520274be85e7e7806e9 # 16.2-alpine
+  postgres:
+    image:
+      repo: registry.infra.poc.dev.nscale.com/docker-cache/postgres@sha256
+      tag: 49fd8c13fbd0eb92572df9884ca41882a036beac0f12e520274be85e7e7806e9 # 16.2-alpine
 ingress:
   enabled: true
   ingressClassName: nginx
-  host: "CLUSTER_NAME.DOMAIN"
+  host: CLUSTER_NAME.DOMAIN
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
   tls:
-    - hosts:
-        - "CLUSTER_NAME.DOMAIN"
-      secretName: "dogkat-ingress-secret"
+    enabled: true
+    host: "CLUSTER_NAME.DOMAIN"
+    secretName: "dogkat-ingress-secret"
 gpu:
   enabled: ENABLE_NVIDIA
   numberOfGPUs: 1
-  nodeLabelSelectors:
-    nvidia.com/gpu.present: "true"
-    topology.kubernetes.io/node-pool: "gpu"
+#  nodeLabelSelectors:
+#    nvidia.com/gpu.present: "true"
+#    topology.kubernetes.io/node-pool: "gpu"
