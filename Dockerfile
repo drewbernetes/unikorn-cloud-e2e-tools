@@ -31,11 +31,13 @@ FROM cgr.dev/chainguard/wolfi-base:latest
 
 ENV DOGKAT_VERSION="0.1.9"
 
-RUN apk update && apk add --no-cache aws-cli bash curl
+RUN apk update && apk add --no-cache aws-cli bash curl gcc glibc-dev python-3.12-dev
+RUN pip install python-openstackclient
 
 RUN echo "e2e-tools:x:1000:1000:E2ETools Non Root,,,:/home/e2e-tools:" >> /etc/passwd
 RUN mkdir -p /home/e2e-tools/.dogkat
 RUN mkdir -p /home/e2e-tools/.kube
+RUN mkdir -p /home/e2e-tools/.config/openstack
 RUN chown e2e-tools: -R /home/e2e-tools
 
 COPY --from=builder /tmp/unikornctl-linux-amd64 /bin/unikornctl
