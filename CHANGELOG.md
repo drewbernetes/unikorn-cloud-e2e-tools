@@ -11,7 +11,7 @@
 [//]: # ()
 [//]: # (### Deprecated/Removed)
 
-## [ 2024/04/16 - 0.1.7 ]
+## [ 2024/04/16 - 0.1.8 ]
 
 ## Changed/Added
 * IMAGE: Updated binaries
