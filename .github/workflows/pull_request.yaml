@@ -43,7 +43,6 @@ jobs:
           s3-secret-key: ${{secrets.S3_SECRET_KEY}}
           s3-bucket: "trivyignores"
           s3-path: "e2e-tools"
-          fail-build: false
           add-latest-tag: false
           publish-image: false
           cosign-private-key: ${{secrets.COSIGN_KEY}}

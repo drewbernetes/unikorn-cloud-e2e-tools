@@ -1,8 +1,8 @@
 FROM cgr.dev/chainguard/wolfi-base:latest as builder
 
-ENV UNIKORNCTL_VERSION="0.1.0"
-ENV DOGKAT_VERSION="0.1.9"
-ENV HELM_VERSION="3.14.3"
+ENV UNIKORNCTL_VERSION="0.1.1"
+ENV DOGKAT_VERSION="0.1.10"
+ENV HELM_VERSION="3.14.4"
 ENV KUBECTL="1.29.3"
 
 WORKDIR /tmp
@@ -11,7 +11,6 @@ RUN apk update && apk add curl
 
 RUN curl -LO https://github.com/drewbernetes/unikornctl/releases/download/v${UNIKORNCTL_VERSION}/unikornctl-linux-amd64
 RUN curl -LO https://github.com/drewbernetes/dogkat/releases/download/v${DOGKAT_VERSION}/dogkat-linux-amd64
-RUN curl -LO https://github.com/drewbernetes/dogkat/releases/download/dogkat-${DOGKAT_VERSION}/dogkat-${DOGKAT_VERSION}.tgz
 RUN chmod +x dogkat-linux-amd64
 RUN chmod +x unikornctl-linux-amd64
 
@@ -29,18 +28,17 @@ RUN chmod +x kubectl
 
 FROM cgr.dev/chainguard/wolfi-base:latest
 
-ENV DOGKAT_VERSION="0.1.9"
-
-RUN apk update && apk add --no-cache aws-cli bash curl
+RUN apk update && apk add --no-cache aws-cli bash curl gcc glibc-dev python-3.12-dev
+RUN pip install python-openstackclient
 
 RUN echo "e2e-tools:x:1000:1000:E2ETools Non Root,,,:/home/e2e-tools:" >> /etc/passwd
 RUN mkdir -p /home/e2e-tools/.dogkat
 RUN mkdir -p /home/e2e-tools/.kube
+RUN mkdir -p /home/e2e-tools/.config/openstack
 RUN chown e2e-tools: -R /home/e2e-tools
 
 COPY --from=builder /tmp/unikornctl-linux-amd64 /bin/unikornctl
 COPY --from=builder /tmp/dogkat-linux-amd64 /bin/dogkat
-COPY --from=builder /tmp/dogkat-${DOGKAT_VERSION}.tgz /tmp/dogkat-${DOGKAT_VERSION}.tgz
 COPY --from=builder /tmp/linux-amd64/helm /bin/helm
 COPY --from=builder /tmp/kubectl /bin/kubectl
 
